@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Heist_2
 {
@@ -12,6 +14,38 @@ namespace Heist_2
         
         public int SecurityGaurdScore {get; set;}
 
+        public string MostSecureSystem
+        {
+            get 
+            {
+               return securityScores.OrderByDescending(score => score.Value).First().Key;
+            }
+        }
+
+        public string LeastSecureSystem
+        {
+            get 
+            {
+               return securityScores.OrderBy(score => score.Value).First().Key;
+            }
+        }
+
+
+
+        private Dictionary<string, int> securityScores
+        {
+            get 
+            {
+               return new Dictionary<string, int>
+               {
+                   {"Alarm Score", AlarmScore },
+                   {"Vault Score", VaultScore},
+                   {"Security Gaurd score", SecurityGaurdScore}
+               };
+            }
+            
+        } 
+
         public bool IsSecure 
         {
             get 
@@ -24,5 +58,6 @@ namespace Heist_2
               
             }
         }
+
     }
 }
